@@ -1,16 +1,35 @@
-var app = require('express').createServer();
+//setup Dependencies
+var config = require('./app/config.js');
 var express = require('express');
+var mongoose = require('mongoose');
 
-app.use(express.bodyParser());
-app.use(express.static(__dirname + '/public'));
+var answerController = require('./controllers/answer.js');
 
-app.get('/', function(req, res){
-  res.send('hello world');
+// Connect to data
+mongoose.connect(config.mongodb);
+
+// Setup server
+var app = express.createServer();
+
+app.configure(function() {
+	app.use(express.bodyParser());
+	app.use("/lib", express.static(__dirname + '/lib'));
+	app.use("/app", express.static(__dirname + '/app'));
+	app.use("/templates", express.static(__dirname + '/templates'));
+	app.use(express.static(__dirname + '/public'));
+	app.use(app.router);
 });
 
-app.post('/question', function(req, res) {
-    console.log(req.body.question);
-    res.redirect('back');
+///////////////////////////////////////////
+//              Routes                   //
+///////////////////////////////////////////
+
+app.get('/', function(req, res) {
+	res.render('index.html')
 });
 
-app.listen(3000);
+// API routes return JSON
+app.post('/api/answer/:qId', answerController.postAnswer);
+
+app.listen(config.port);
+console.log('Listening on http://0.0.0.0:' + config.port);

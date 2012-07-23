@@ -1,0 +1,21 @@
+{
+    "name": "wonder",
+	"description": "enterprise QA site",
+	"version": "0.1.1",
+	"author": "Xin Liu <liuxin_ub@yahoo.com>",
+	"dependencies": {
+        "express":"*",
+		"jade":"*",
+        "ejs" :"*",
+        "mongoose":"*"
+    },
+	"devDependencies": {
+        "mocha": ">=1.0.1"
+    },
+	"main": "./index.js",
+	"engines": { "node": ">= 0.6.12" },
+	"repository": {
+        "type": "git",
+		"url": "git://github.com/goododd/wonder.git"
+    }
+}

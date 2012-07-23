@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Todos</title>
+    <script src="../lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../lib/underscore.js" type="text/javascript"></script>
+	<script src="../lib/backbone.js" type="text/javascript"></script>
+	<script src="../app/utils.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../app/main.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		var answer = Backbone.Model.extend({});
+
+		var AnswerList = Backbone.Collection.extend({
+			model: answer,
+		  });
+
+		var answers = new AnswerList;
+  
+		var AnswerView = Backbone.View.extend({
+		  
+			initialize: function() {
+			  this.template = _.template('<div><table><tr><td><h6>Name:</h6></td><td><%= name %></td></tr><tr><td><h6>Answer:</h6></td><td><%= content %></td></tr></table></div>');
+			  this.model.bind('change', this.render);
+			},
+		  
+			render: function() {
+			  $(this.el).html(this.template(this.model.toJSON()));
+			  return this;
+			}
+		  });
+		  
+			var AppView = Backbone.View.extend({
+
+				events: {
+					"keypress #new-answer": "enter"
+				},
+
+				initialize: function () {
+					answers.bind('add',     this.addOne);
+				},
+
+				render: function () {
+					
+				},
+				
+				addOne: function(answer) {
+					  var view = new AnswerView({model: answer}).render().el;
+					  $("#answer-list").append(view);
+					},
+					
+				enter: function (e) {
+					if (e.charCode != 13) return;
+					  answers.create({
+						name: "xin",
+						content: $("#new-answer").attr('value')
+					  });
+				}
+
+			});
+
+			$(function () {
+				var appview = new AppView({ el:$(".content")});
+			});
+		
+	</script>
+  </head>
+  <body>
+      <div class='title'>
+        <h1>Dummy question</h1>
+      </div>
+      <div class='content'>
+        <div id='answers'>
+          <ul id='answer-list'></ul>
+        </div>
+		
+        <input id='new-answer' placeholder='What needs to be done?' type='text' />
+        
+      </div>
+	
+  </body>
+</html>
