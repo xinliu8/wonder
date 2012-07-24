@@ -1,9 +1,9 @@
 //setup Dependencies
-var config = require('./app/config.js');
+var config = require('./public/config.js');
 var express = require('express');
 var mongoose = require('mongoose');
 
-var answerController = require('./controllers/answer.js');
+var answerController = require('./public/controllers/answer.js');
 
 // Connect to data
 mongoose.connect(config.mongodb);
