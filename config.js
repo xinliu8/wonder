@@ -6,7 +6,7 @@ module.exports = {
         host: 'localhost',
         port: 6379
     },
-    mongodb: 'mongodb://localhost/my_database',
+    mongodb: 'mongodb://localhost/wonder',
     socketio: {
         level: 2
     },
@@ -17,6 +17,6 @@ module.exports = {
 };
 
 if (module.exports.environment == 'production') {
-	module.exports.port = process.env.PORT || 80; // Joyent SmartMachine uses process.env.PORT
-    module.exports.uri = 'http://localhost:'+module.exports.port;
+  module.exports.port = process.env.PORT || 80; // Joyent SmartMachine uses process.env.PORT
+  module.exports.uri = 'http://localhost:'+module.exports.port;
 }
