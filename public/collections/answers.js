@@ -6,11 +6,8 @@ define([
 
 	var AnswerCollection = Backbone.Collection.extend({
 
-    // Reference to this collection's model.
     model: Answer,
-	
-	url: '/api/answers'
-
+    url: '/api/answers'
   });
-  return new AnswerCollection;
+  return AnswerCollection;
 });

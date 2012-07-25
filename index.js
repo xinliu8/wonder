@@ -2,6 +2,7 @@
 var config = require('./config.js');
 var express = require('express');
 var answerController = require('./controllers/answer.js');
+var questionController = require('./controllers/question.js');
 
 // Setup server
 var app = express.createServer();
@@ -20,6 +21,7 @@ app.get('/', function(req, res) {
 	res.render('index.html')
 });
 
+app.post('/api/question', questionController.postQuestion);
 app.post('/api/answers', answerController.postAnswer);
 
 app.listen(config.port);

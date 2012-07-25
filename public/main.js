@@ -21,7 +21,7 @@ require.config({
 });
 
 require([
-  'views/app'
+  'views/front'
   ], function(AppView){
-  var app_view = new AppView;
+  var frontView = new AppView;
 });
