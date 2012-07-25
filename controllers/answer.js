@@ -1,23 +1,15 @@
-var mongoose = require('mongoose');
-var config = require('../config.js');
-
-// Connect to data
-mongoose.connect(config.mongodb);
+//var storage = require('./mongo_store.js');
+var storage = require('./solr_store.js');
 
 var answer = exports;
 
-var AnswerRow = mongoose.model('Answer', new mongoose.Schema({
-  content: String,
-  name: String
-}));
-
 answer.postAnswer = function(req, res) {
 	var ans;
-  ans = new AnswerRow({
+  ans = {
     content: req.body.content,
     name: req.body.name
-  });
-  ans.save(function(err) {
+  };
+  storage.save(ans, 'answer', function(err) {
     if (!err) {
       return console.log("created");
     }

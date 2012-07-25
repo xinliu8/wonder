@@ -7,7 +7,8 @@
         "express":"*",
 		"jade":"*",
         "ejs" :"*",
-        "mongoose":"*"
+        "mongoose":"*",
+        "request":"*"
     },
 	"devDependencies": {
         "mocha": ">=1.0.1"
