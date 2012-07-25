@@ -14,16 +14,27 @@ String.prototype.format = function() {
 };
 
 storage.save = function(obj, tableName, error) {
-	var url = "http://{0}:{1}/solr/update/json?commit=true".format(config.solr.server, config.solr.port)
+  var url = "http://{0}:{1}/solr/update/json?commit=true".format(config.solr.server, config.solr.port);
+  obj['id'] = "Test123";
+  var doc = {};
+  //doc['doc'] = {'id':'Test23'};
+  doc['doc'] = obj;
+  
+  var toSave = {};
+  toSave['add'] = doc;
+  
+  var data = JSON.stringify(toSave);
+  console.log(data);
+  
   request( 
     { method: 'POST'
     , uri: url
-    , json: JSON.stringify(obj)
+    , headers : {'Content-Type': 'application/json', 'Content-Length': data.length}
+    , body: data
     }
   , function (err, response, body) {
     if (!err && response.statusCode == 200) {
       console.log("success");
-      console.log(JSON.stringify(obj));
       console.log(body);
     }
     else {
