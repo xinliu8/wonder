@@ -8,7 +8,8 @@ define([
     initialize: function() {
       this.answers = new Answers;
     },
-    url: '/api/question'
+    //url: '/api/question',
+    urlRoot: '/api/question'
   });
   return QuestionModel;
 });

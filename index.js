@@ -21,7 +21,12 @@ app.get('/', function(req, res) {
 	res.render('index.html')
 });
 
+app.get('/question/:id', function(req, res) {
+	res.render('question.html')
+});
+
 app.post('/api/question', questionController.postQuestion);
+app.get('/api/question/:id', questionController.getQuestion);
 app.post('/api/answers', answerController.postAnswer);
 
 app.listen(config.port);

@@ -32,6 +32,8 @@ define([
     // Add a single todo item to the list by creating a view for it, and
     // appending its element to the `<ul>`.
     addOne: function(question) {
+      // this save will update the id returned by the server
+      question.save();
       var view = new QuestionView({model: question});
       this.$("#question-list").append(view.render().el);
     },
@@ -51,7 +53,7 @@ define([
         content: this.input.val(),
         name:    "Xin"
       });
-      q.save();
+      //q.save();
       this.questions.add(q);
       //this.questions.create(this.newAttributes());
       this.input.val('');

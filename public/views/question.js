@@ -2,8 +2,9 @@ define([
   'jquery', 
   'underscore', 
   'backbone',
-  'text!templates/question.html'
-  ], function($, _, Backbone, QuestionTemplate){
+  'text!templates/question.html',
+  
+  ], function($, _, Backbone, QuestionTemplate, Router){
   var QuestionView = Backbone.View.extend({
 
     tagName:  "li",
@@ -25,7 +26,8 @@ define([
     },
     
     navigate: function() {
-      alert(this.model.id);
+      var link = '/question/'+this.model.id;
+      window.router.navigate(link, true);
     }
   });
   return QuestionView;

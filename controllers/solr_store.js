@@ -14,17 +14,12 @@ String.prototype.format = function() {
 };
 
 storage.save = function(obj, tableName, error) {
-  var url = "http://{0}:{1}/solr/update/json?commit=true".format(config.solr.server, config.solr.port);
-  obj['id'] = "Test123";
-  var doc = {};
-  //doc['doc'] = {'id':'Test23'};
-  doc['doc'] = obj;
-  
   var toSave = {};
-  toSave['add'] = doc;
+  toSave['add'] = {};
+  toSave['add']['doc'] = obj;
   
   var data = JSON.stringify(toSave);
-  console.log(data);
+  var url = "http://{0}:{1}/solr/update/json?commit=true".format(config.solr.server, config.solr.port);  
   
   request( 
     { method: 'POST'
@@ -43,3 +38,11 @@ storage.save = function(obj, tableName, error) {
     }
   });
 };
+
+storage.get = function(id, tableName, callback) {
+  var url = "http://{0}:{1}/solr/select/?q=id:{2}&wt=json&indent=on".format(config.solr.server, config.solr.port, id);  
+  request(url, function (err, response, body) {
+    callback(body, err);
+  });
+};
+  

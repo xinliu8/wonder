@@ -21,7 +21,11 @@ require.config({
 });
 
 require([
+  'router',
   'views/front'
-  ], function(AppView){
-  var frontView = new AppView;
+  ], function(Router, AppView){
+  
+  window.router = new Router();
+	Backbone.history.start();
+  new AppView;
 });

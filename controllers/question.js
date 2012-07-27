@@ -21,3 +21,15 @@ question.postQuestion = function(req, res) {
   });
   return res.send(q);
 };
+
+question.getQuestion = function(req, res) {
+  var qId = req.params.id;
+  
+  storage.get(qId, 'question', function(data, err) {
+    if (err) {
+      return console.log("get question error:" + err + "for " + qId);
+    }else {
+      return res.send(data);
+    }
+  });
+};

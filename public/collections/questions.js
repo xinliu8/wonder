@@ -6,7 +6,8 @@ define([
 
 	var QuestionCollection = Backbone.Collection.extend({
 
-    model: Question
+    model: Question,
+    url: '/api/question'
     
   });
   return QuestionCollection;
