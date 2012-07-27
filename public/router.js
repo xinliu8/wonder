@@ -3,8 +3,8 @@ define([
   'underscore', 
   'backbone', 
   'models/question',
-  'views/question'
-  ], function($, _, Backbone, Question, QuestionView){
+  'views/questions'
+  ], function($, _, Backbone, Question, QuestionsView){
   var AppRouter = Backbone.Router.extend({
 
     routes:{
@@ -12,13 +12,22 @@ define([
       "question/:id":"questionDetails"
     },
     
+    home:function () {
+      // Since the home view never changes, we instantiate it and render it only once
+      if (!this.questionsView) {
+        this.questionsView = new QuestionsView();
+        this.questionsView.render();
+      }
+      $('#content').html(this.questionsView.el);
+    },
+
     questionDetails:function (id) {
       var question = new Question({id:id});
       question.fetch({
         success:function (data) {
           // Note that we could also 'recycle' the same instance of EmployeeFullView
           // instead of creating new instances
-          $('#details').html(new QuestionView({model:data}).render().el);
+          $('#content').html(new QuestionDetailsView({model:data}).render().el);
         }
       });
     }

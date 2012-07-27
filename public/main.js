@@ -22,10 +22,10 @@ require.config({
 
 require([
   'router',
-  'views/front'
+  'views/app'
   ], function(Router, AppView){
   
   window.router = new Router();
-	Backbone.history.start();
   new AppView;
+  Backbone.history.start();
 });

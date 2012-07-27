@@ -6,7 +6,7 @@ define([
   'collections/questions',
   'views/question'
   ], function($, _, Backbone, Question, Questions, QuestionView){
-  var FrontView = Backbone.View.extend({
+  var AppView = Backbone.View.extend({
 
     // Instead of generating a new element, bind to the existing skeleton of
     // the App already present in the HTML.
@@ -38,14 +38,6 @@ define([
       this.$("#question-list").append(view.render().el);
     },
 
-    // Generate the attributes for a new Todo item.
-    newAttributes: function() {
-      return {
-        content: this.input.val(),
-        name:    "Xin"
-      };
-    },
-
     // If you hit return in the main input field, create new **Answer** model
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
@@ -53,11 +45,10 @@ define([
         content: this.input.val(),
         name:    "Xin"
       });
-      //q.save();
+      
       this.questions.add(q);
-      //this.questions.create(this.newAttributes());
       this.input.val('');
     }
   });
-  return FrontView;
+  return AppView;
 });
