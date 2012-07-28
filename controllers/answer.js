@@ -9,10 +9,12 @@ answer.postAnswer = function(req, res) {
     content: req.body.content,
     name: req.body.name
   };
-  storage.save(ans, 'answer', function(err) {
-    if (!err) {
-      return console.log("created");
+  
+  storage.save(ans, 'answer', function(err, data) {
+    if (err) {
+      return console.log("post answer error:" + err + "for " + req.body.content);
+    }else {
+      return res.send(ans);
     }
   });
-  return res.send(ans);
 };

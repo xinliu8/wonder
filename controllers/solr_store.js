@@ -13,7 +13,7 @@ String.prototype.format = function() {
   });
 };
 
-storage.save = function(obj, tableName, error) {
+storage.save = function(obj, tableName, callback) {
   var toSave = {};
   toSave['add'] = {};
   toSave['add']['doc'] = obj;
@@ -28,21 +28,19 @@ storage.save = function(obj, tableName, error) {
     , body: data
     }
   , function (err, response, body) {
-    if (!err && response.statusCode == 200) {
-      console.log("success");
-      console.log(body);
-    }
-    else {
-      console.log("error");
-      error(err);
-    }
+    callback(err, body);
   });
 };
 
 storage.get = function(id, tableName, callback) {
   var url = "http://{0}:{1}/solr/select/?q=id:{2}&wt=json&indent=on".format(config.solr.server, config.solr.port, id);  
   request(url, function (err, response, body) {
-    callback(body, err);
+    if(err){
+      callback(err, undefined);
+    } else {
+      var obj = JSON.parse(body);
+      callback(err, obj.response.docs[0]);
+    }
   });
 };
   

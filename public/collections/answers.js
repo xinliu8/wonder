@@ -7,7 +7,7 @@ define([
 	var AnswerCollection = Backbone.Collection.extend({
 
     model: Answer,
-    url: '/api/answers'
+    url: '/api/answer'
   });
   return AnswerCollection;
 });

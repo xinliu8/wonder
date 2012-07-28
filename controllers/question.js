@@ -14,18 +14,19 @@ question.postQuestion = function(req, res) {
   
   question.count += 1;
   
-  storage.save(q, 'question', function(err) {
-    if (!err) {
-      return console.log("created");
+  storage.save(q, 'question', function(err, data) {
+    if (err) {
+      return console.log("post question error:" + err + "for " + req.body.content);
+    }else {
+      return res.send(q);
     }
   });
-  return res.send(q);
 };
 
 question.getQuestion = function(req, res) {
   var qId = req.params.id;
   
-  storage.get(qId, 'question', function(data, err) {
+  storage.get(qId, 'question', function(err, data) {
     if (err) {
       return console.log("get question error:" + err + "for " + qId);
     }else {

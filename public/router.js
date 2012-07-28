@@ -3,8 +3,9 @@ define([
   'underscore', 
   'backbone', 
   'models/question',
-  'views/questions'
-  ], function($, _, Backbone, Question, QuestionsView){
+  'views/questions',
+  'views/answers'
+  ], function($, _, Backbone, Question, QuestionsView, AnswersView){
   var AppRouter = Backbone.Router.extend({
 
     routes:{
@@ -27,7 +28,7 @@ define([
         success:function (data) {
           // Note that we could also 'recycle' the same instance of EmployeeFullView
           // instead of creating new instances
-          $('#content').html(new QuestionDetailsView({model:data}).render().el);
+          $('#content').html(new AnswersView({model:data}).render().el);
         }
       });
     }
