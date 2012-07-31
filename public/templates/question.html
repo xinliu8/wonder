@@ -1,8 +1,13 @@
+<h1> <%= title %></h1>
+<div id='answers'>
+  <ul id='answer-list'>
+  <% if (answers) { %>
+  <%   answers.each( function(answer) { %>
+         <li> name: <%= name %>, content: <%=content %> </li>
+  <%   }); %>
+  <% } %>
+  </ul>
+</div>
 <div>
-	<table>
-		<tr>
-      <td><%= name %></td>
-			<td><a href='#question/<%= id %>'><%= content %></a></td>
-		</tr>
-	</table>
+<input id='new-answer' placeholder='what ...' type='text' />
 </div>

@@ -2,22 +2,25 @@ define([
   'jquery', 
   'underscore', 
   'backbone',
-  'text!templates/question.html',
-  
-  ], function($, _, Backbone, QuestionTemplate, Router){
+  'models/answer',
+  'views/answer',
+  'collections/answers',
+  'text!templates/question.html'
+  ], function($, _, Backbone, Answer, AnswerView, Answers, QuestionTemplate){
   var QuestionView = Backbone.View.extend({
-
-    tagName:  "li",
-
-    template: _.template(QuestionTemplate),
+  
+    template : _.template(QuestionTemplate),
     
     events: {
-      "click #q":     "navigate",
-    },
-
+      "keypress #new-answer": "createOnEnter"
+		},
+    
     initialize: function() {
-      this.model.bind('change', this.render, this);
-      this.model.view = this;
+      if(!this.model.get('answers')) {
+        this.model.set('answers', new Answers);
+      }
+      this.answers = this.model.get('answers');
+      this.answers.bind('add', this.addOne, this);
     },
 
     render: function() {
@@ -25,9 +28,28 @@ define([
       return this;
     },
     
-    navigate: function() {
-      var link = '/question/'+this.model.id;
-      window.router.navigate(link, true);
+    addOne: function(answer) {
+      // this save will update the id returned by the server
+      answer.save(undefined, 
+        {
+          success: function(model, res) {
+            var view = new AnswerView({model: model});
+            this.$("#answer-list").append(view.render().el);
+          }
+        });
+    },
+
+    // If you hit return in the main input field, create new **Answer** model
+    createOnEnter: function(e) {
+      if (e.keyCode != 13) return;
+      var q = new Answer({
+        qId: this.model.get('id'),
+        content: this.$("#new-answer").val(),
+        name:    "Xin"
+      });
+      
+      this.answers.add(q);
+      this.$("#new-answer").val('');
     }
   });
   return QuestionView;

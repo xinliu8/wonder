@@ -3,13 +3,13 @@ define([
   'underscore', 
   'backbone',
   'models/question',
-  'views/question',
+  'views/question_item',
   'collections/questions',
-  'text!templates/questions.html'
-  ], function($, _, Backbone, Question, QuestionView, Questions, QuestionsTemplate){
-  var QuestionsView = Backbone.View.extend({
+  'text!templates/question_list.html'
+  ], function($, _, Backbone, Question, QuestionItemView, Questions, QuestionListTemplate){
+  var QuestionListView = Backbone.View.extend({
 
-    template: _.template(QuestionsTemplate),
+    template: _.template(QuestionListTemplate),
     
     events: {
       "keypress #new-question": "createOnEnter"
@@ -30,7 +30,7 @@ define([
       question.save(undefined, 
         {
           success: function(model, res) {
-            var view = new QuestionView({model: model});
+            var view = new QuestionItemView({model: model});
             this.$("#question-list").append(view.render().el);
           }
         });
@@ -40,13 +40,13 @@ define([
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
       var q = new Question({
-        content: this.$("#new-question").val(),
-        name:    "Xin"
+        title: this.$("#new-question").val(),
+        author:    "Xin"
       });
       
       this.questions.add(q);
       this.$("#new-question").val('');
     }
   });
-  return QuestionsView;
+  return QuestionListView;
 });

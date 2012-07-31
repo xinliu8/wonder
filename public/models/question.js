@@ -9,7 +9,6 @@ define([
       this.answers = new Answers;
     },
     
-    //url: '/api/question',
     urlRoot: '/api/question'
   });
   return QuestionModel;

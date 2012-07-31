@@ -6,17 +6,22 @@ question.count = 0;
 
 question.postQuestion = function(req, res) {
   var loginId = 'Xin';
-	var q = {
+	
+  var q = {
     id : loginId + question.count,
-    content: req.body.content,
-    name: req.body.name
+    title: req.body.title,
+    author: req.body.author
   };
+  
+  if(req.body.answers){
+    q.answers = req.body.answers;
+  }
   
   question.count += 1;
   
   storage.save(q, 'question', function(err, data) {
     if (err) {
-      return console.log("post question error:" + err + "for " + req.body.content);
+      return console.log("post question error:" + err + "for " + req.body.title);
     }else {
       return res.send(q);
     }

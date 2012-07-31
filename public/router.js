@@ -3,23 +3,23 @@ define([
   'underscore', 
   'backbone', 
   'models/question',
-  'views/questions',
-  'views/answers'
-  ], function($, _, Backbone, Question, QuestionsView, AnswersView){
+  'views/question_list',
+  'views/question'
+  ], function($, _, Backbone, Question, QuestionListView, QuestionView){
   var AppRouter = Backbone.Router.extend({
 
     routes:{
-      "":"home",
+      "":"questionList",
       "question/:id":"questionDetails"
     },
     
-    home:function () {
-      // Since the home view never changes, we instantiate it and render it only once
-      if (!this.questionsView) {
-        this.questionsView = new QuestionsView();
-        this.questionsView.render();
+    questionList:function () {
+      
+      if (!this.questionListView) {
+        this.questionListView = new QuestionListView();
+        this.questionListView.render();
       }
-      $('#content').html(this.questionsView.el);
+      $('#content').html(this.questionListView.el);
     },
 
     questionDetails:function (id) {
@@ -28,7 +28,7 @@ define([
         success:function (data) {
           // Note that we could also 'recycle' the same instance of EmployeeFullView
           // instead of creating new instances
-          $('#content').html(new AnswersView({model:data}).render().el);
+          $('#content').html(new QuestionView({model:data}).render().el);
         }
       });
     }
