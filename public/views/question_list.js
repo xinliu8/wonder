@@ -41,7 +41,7 @@ define([
       if (e.keyCode != 13) return;
       var q = new Question({
         title: this.$("#new-question").val(),
-        author:    "Xin"
+        q_author:    "Xin"
       });
       
       this.questions.add(q);

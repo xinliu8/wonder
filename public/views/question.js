@@ -44,8 +44,8 @@ define([
       if (e.keyCode != 13) return;
       var q = new Answer({
         qId: this.model.get('id'),
-        content: this.$("#new-answer").val(),
-        name:    "Xin"
+        answer: this.$("#new-answer").val(),
+        a_author:    "Xin"
       });
       
       this.answers.add(q);

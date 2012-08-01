@@ -1,9 +1,9 @@
 <h1> <%= title %></h1>
 <div id='answers'>
   <ul id='answer-list'>
-  <% if (answers) { %>
-  <%   answers.each( function(answer) { %>
-         <li> name: <%= name %>, content: <%=content %> </li>
+  <% if (answer) { %>
+  <%   _.each(answer, function(ans) { %>
+         <li> Author: <%= a_author %>, Answer: <%=ans %> </li>
   <%   }); %>
   <% } %>
   </ul>
