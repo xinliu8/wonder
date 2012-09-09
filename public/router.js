@@ -28,7 +28,10 @@ define([
         success:function (data) {
           // Note that we could also 'recycle' the same instance of EmployeeFullView
           // instead of creating new instances
-          $('#content').html(new QuestionView({model:data}).render().el);
+          
+          var questionView = new QuestionView({model:data});
+          $('#content').html(questionView.render().el);
+          questionView.populate();
         }
       });
     }

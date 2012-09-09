@@ -10,7 +10,7 @@ question.postQuestion = function(req, res) {
   var q = {
     id : loginId + question.count,
     title: req.body.title,
-    author: req.body.author
+    q_author: req.body.q_author
   };
   
   if(req.body.answers){

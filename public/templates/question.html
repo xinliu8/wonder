@@ -1,12 +1,13 @@
 <h1> <%= title %></h1>
 <div id='answers'>
-  <ul id='answer-list'>
-  <% if (answer) { %>
-  <%   _.each(answer, function(ans) { %>
-         <li> Author: <%= a_author %>, Answer: <%=ans %> </li>
-  <%   }); %>
+  <!--<ul id='existingAnswers'>
+  <% if (answers) { %>
+  <%   for( var i = 0; i< answers.length; i++) { %>
+         <li>Author: <%=a_authors[i] %> Answer: <%=answers[i] %> </li>
+  <%   } %>
   <% } %>
-  </ul>
+  </ul>-->
+  <ul id='answer-list'/>
 </div>
 <div>
 <input id='new-answer' placeholder='what ...' type='text' />

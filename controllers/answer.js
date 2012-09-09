@@ -17,15 +17,15 @@ answer.postAnswer = function(req, res) {
       return console.log("get question error:" + err + "for " + qId);
     }else {
       q = data;
-      if(!q.answer) {
-        q.answer = new Array();
+      if(!q.answers) {
+        q.answers = new Array();
       }
-      if(!q.a_author) {
-        q.a_author = new Array();
+      if(!q.a_authors) {
+        q.a_authors = new Array();
       }
       
-      q.answer.push(ans.answer);
-      q.a_author.push(ans.a_author);
+      q.answers.push(ans.answer);
+      q.a_authors.push(ans.a_author);
       
       storage.save(q, 'question', function(err, data) {
         if (err) {
