@@ -1,23 +1,28 @@
 define([
-  'jquery', 
+  'jquery',
+  'jqueryui',
   'underscore', 
   'backbone',
   'models/question',
   'views/question_item',
   'collections/questions',
   'text!templates/question_list.html'
-  ], function($, _, Backbone, Question, QuestionItemView, Questions, QuestionListTemplate){
+  ], function($, JqueryUi, _, Backbone, Question, QuestionItemView, Questions, QuestionListTemplate){
   var QuestionListView = Backbone.View.extend({
 
     template: _.template(QuestionListTemplate),
     
     events: {
-      "keypress #new-question": "createOnEnter"
+      "keypress #newQuestion": "createOnEnter"
 		},
     
     initialize: function() {
       this.questions = new Questions;
       this.questions.bind('add', this.addOne, this);
+      $("#newQuestion").autocomplete({
+        minLength: 2,
+        source: "",
+      });
     },
 
     render: function() {
