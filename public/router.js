@@ -14,11 +14,8 @@ define([
     },
     
     questionList:function () {
-      
-      if (!this.questionListView) {
-        this.questionListView = new QuestionListView();
-        this.questionListView.render();
-      }
+      this.questionListView = new QuestionListView();
+      this.questionListView.render();
       $('#content').html(this.questionListView.el);
     },
 

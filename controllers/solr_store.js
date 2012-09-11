@@ -39,7 +39,30 @@ storage.get = function(id, tableName, callback) {
       callback(err, undefined);
     } else {
       var obj = JSON.parse(body);
-      callback(err, obj.response.docs[0]);
+      if(obj && obj.response && obj.response.docs && obj.response.docs.length > 0)
+      {
+        callback(err, obj.response.docs[0]);
+      } else {
+        callback(err, {"id": id});
+      }
+    }
+  });
+};
+
+storage.suggest = function(hint, tableName, callback) {
+  var url = "http://{0}:{1}/solr/suggest?q={2}&wt=json&indent=on".format(config.solr.server, config.solr.port, hint);  
+  request(url, function (err, response, body) {
+    if(err){
+      callback(err, undefined);
+    } else {
+      var obj = JSON.parse(body);
+      // obj.spellcheck.suggestions[0] == hint
+      if(obj && obj.spellcheck && obj.spellcheck.suggestions && obj.spellcheck.suggestions.length > 1)
+      {
+        callback(err, obj.spellcheck.suggestions[1].suggestion);
+      } else {
+        callback(err, []);
+      }
     }
   });
 };

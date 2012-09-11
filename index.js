@@ -28,6 +28,7 @@ app.get('/question/:id', function(req, res) {
 app.post('/api/question', questionController.postQuestion);
 app.get('/api/question/:id', questionController.getQuestion);
 app.post('/api/answer', answerController.postAnswer);
+app.get('/api/suggest/:hint', questionController.getSuggest);
 
 app.listen(config.port);
 console.log('Listening on http://0.0.0.0:' + config.port);

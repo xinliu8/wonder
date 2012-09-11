@@ -19,14 +19,24 @@ define([
     initialize: function() {
       this.questions = new Questions;
       this.questions.bind('add', this.addOne, this);
-      $("#newQuestion").autocomplete({
-        minLength: 2,
-        source: "",
-      });
     },
 
     render: function() {
       $(this.el).html(this.template());
+      this.$("#newQuestion").autocomplete({
+        minLength: 2,
+        source: function( request, response ) {
+            $.ajax({
+				url: "/api/suggest/" + request.term,
+				success: function( data, textStatus, jqXHR ) {
+					response(data);
+				},
+                error: function(jqXHR, textStatus, errorThrown){
+                    var status = textStatus;
+                }
+			});
+        }
+      });
       return this;
     },
     
@@ -36,7 +46,7 @@ define([
         {
           success: function(model, res) {
             var view = new QuestionItemView({model: model});
-            this.$("#question-list").append(view.render().el);
+            this.$("#questionList").append(view.render().el);
           }
         });
     },
@@ -45,12 +55,12 @@ define([
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
       var q = new Question({
-        title: this.$("#new-question").val(),
+        title: this.$("#newQuestion").val(),
         q_author:    "Xin"
       });
       
       this.questions.add(q);
-      this.$("#new-question").val('');
+      this.$("#newQuestion").val('');
     }
   });
   return QuestionListView;

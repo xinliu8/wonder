@@ -39,3 +39,15 @@ question.getQuestion = function(req, res) {
     }
   });
 };
+
+question.getSuggest = function(req, res) {
+  var hint = req.params.hint;
+  
+  storage.suggest(hint, 'question', function(err, data) {
+    if (err) {
+      return console.log("post hint error:" + err + "for " + hint);
+    }else {
+      return res.send(data);
+    }
+  });
+};
