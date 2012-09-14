@@ -8,7 +8,8 @@ require.config({
     jqueryui: 'libs/jquery/jquery-ui-1.8.23.custom.min',
     underscore: 'libs/underscore/underscore',
     backbone: 'libs/backbone/backbone',
-    text: 'libs/require/text'
+    text: 'libs/require/text',
+    bootstrap: 'libs/bootstrap/bootstrap'
   },
   shim: {
     underscore: {
@@ -21,9 +22,11 @@ require.config({
   }
 });
 
+// put bootstrap here to load it from the beginning
 require([
-  'router'
-  ], function(Router){
+  'router',
+  'bootstrap'
+  ], function(Router, BootStrap){
   
   window.router = new Router();
   Backbone.history.start();
