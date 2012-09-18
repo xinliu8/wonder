@@ -1198,6 +1198,7 @@
       <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
       <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
       <str name="field">title_ac</str>
+      <str name="buildOnCommit">true</str>
     </lst>
   </searchComponent>
   <requestHandler name="/suggest" class="org.apache.solr.handler.component.SearchHandler">

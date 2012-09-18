@@ -1,6 +1,6 @@
 module.exports = {
-	port: 6969,
-	uri: 'http://localhost:6969', // Without trailing /
+	port: 8029,
+	uri: 'http://localhost:8029', // Without trailing /
   solr: {
     server: 'localhost',
     port: 8983

@@ -23,18 +23,22 @@ define([
 
     render: function() {
       $(this.el).html(this.template());
-      this.$("#newQuestion").autocomplete({
+      this.$("#newQuestion").typeahead({
         minLength: 2,
         source: function( request, response ) {
-            $.ajax({
-				url: "/api/suggest/" + request.term,
-				success: function( data, textStatus, jqXHR ) {
-					response(data);
-				},
-                error: function(jqXHR, textStatus, errorThrown){
-                    var status = textStatus;
-                }
-			});
+          $.ajax({
+            url: "/api/suggest/" + request,
+            cache: false,
+            success: function( data, textStatus, jqXHR ) {
+              response(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              response(errorThrown);
+            }
+          });
+        },
+        updater: function (item) {
+          return item;
         }
       });
       return this;
