@@ -10,7 +10,7 @@ define([
 
     routes:{
       "":"questionList",
-      "question/:id":"questionDetails"
+      "question/:title":"questionDetails"
     },
     
     questionList:function () {
@@ -19,13 +19,11 @@ define([
       $('#content').html(this.questionListView.el);
     },
 
-    questionDetails:function (id) {
-      var question = new Question({id:id});
+    questionDetails:function (title) {
+      // even though we use title as id, Backbone.sync assume "id" when doing CRUD
+      var question = new Question({id:title});
       question.fetch({
         success:function (data) {
-          // Note that we could also 'recycle' the same instance of EmployeeFullView
-          // instead of creating new instances
-          
           var questionView = new QuestionView({model:data});
           $('#content').html(questionView.render().el);
           questionView.populate();

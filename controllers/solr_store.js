@@ -32,8 +32,8 @@ storage.save = function(obj, tableName, callback) {
   });
 };
 
-storage.get = function(id, tableName, callback) {
-  var url = "http://{0}:{1}/solr/select/?q=id:{2}&wt=json&indent=on".format(config.solr.server, config.solr.port, id);  
+storage.get = function(title, tableName, callback) {
+  var url = "http://{0}:{1}/solr/select/?q=title:{2}&wt=json&indent=on".format(config.solr.server, config.solr.port, title);  
   request(url, function (err, response, body) {
     if(err){
       callback(err, undefined);
@@ -43,7 +43,7 @@ storage.get = function(id, tableName, callback) {
       {
         callback(err, obj.response.docs[0]);
       } else {
-        callback(err, {"id": id});
+        callback(err, {"title": title});
       }
     }
   });

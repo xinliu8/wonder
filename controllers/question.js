@@ -2,22 +2,17 @@
 var storage = require('./solr_store.js');
 
 var question = exports;
-question.count = 0;
 
 question.postQuestion = function(req, res) {
-  var loginId = 'Xin';
-	
+  
   var q = {
-    id : loginId + question.count,
-    title: req.body.title,
+    title: req.body.title.replace(/ /g, "_"),
     q_author: req.body.q_author
   };
   
   if(req.body.answers){
     q.answers = req.body.answers;
   }
-  
-  question.count += 1;
   
   storage.save(q, 'question', function(err, data) {
     if (err) {
@@ -29,11 +24,11 @@ question.postQuestion = function(req, res) {
 };
 
 question.getQuestion = function(req, res) {
-  var qId = req.params.id;
+  var title = req.params.title;
   
-  storage.get(qId, 'question', function(err, data) {
+  storage.get(title, 'question', function(err, data) {
     if (err) {
-      return console.log("get question error:" + err + "for " + qId);
+      return console.log("get question error:" + err + "for " + title);
     }else {
       return res.send(data);
     }

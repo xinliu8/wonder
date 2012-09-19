@@ -12,7 +12,7 @@
         padding-bottom: 40px;
       }
   </style>
-  <script data-main="main" src="libs/require/require.js"></script>
+  
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,8 +21,7 @@
         <a class="brand" href="#">Wonder</a>
         <ul class="nav">
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><input id='query' type='text' /></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -43,5 +42,8 @@
   <div class="container">
     <div id='content'/>  
   </div>
+  
+  <script data-main="main" src="libs/require/require.js"></script>
+  
 </body>
 </html>

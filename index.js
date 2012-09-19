@@ -21,12 +21,8 @@ app.get('/', function(req, res) {
 	res.render('index.html')
 });
 
-app.get('/question/:id', function(req, res) {
-	res.render('question.html')
-});
-
 app.post('/api/question', questionController.postQuestion);
-app.get('/api/question/:id', questionController.getQuestion);
+app.get('/api/question/:title', questionController.getQuestion);
 app.post('/api/answer', answerController.postAnswer);
 app.get('/api/suggest/:hint', questionController.getSuggest);
 

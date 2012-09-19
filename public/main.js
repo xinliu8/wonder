@@ -28,9 +28,30 @@ require.config({
 // put bootstrap here to load it from the beginning
 require([
   'router',
+  'jquery',
   'bootstrap'
-  ], function(Router, BootStrap){
+  ], function(Router, $, BootStrap){
   
   window.router = new Router();
   Backbone.history.start();
+  
+  this.$("#query").typeahead({
+        minLength: 2,
+        source: function( request, response ) {
+          $.ajax({
+            url: "/api/suggest/" + request,
+            cache: false,
+            success: function( data, textStatus, jqXHR ) {
+              response(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              response(errorThrown);
+            }
+          });
+        },
+        updater: function (item) {
+          window.router.navigate("question/" + item, {trigger: true});
+          return item;
+        }
+      });
 });

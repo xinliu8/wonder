@@ -28,7 +28,7 @@ define([
       if(answers) {
         for(var i=0; i< answers.length; i++) {
           var ans = new Answer({
-            qId: this.model.get('id'),
+            qId: this.model.get('title'),
             answer: answers[i],
             a_author:    "Xin"
           });
@@ -64,7 +64,7 @@ define([
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
       var ans = new Answer({
-        qId: this.model.get('id'),
+        qId: this.model.get('title'),
         answer: this.$("#new-answer").val(),
         a_author:    "Xin"
       });
