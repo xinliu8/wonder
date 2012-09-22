@@ -5,8 +5,11 @@ var question = exports;
 
 question.postQuestion = function(req, res) {
   
+  var title = req.body.title.replace(/ /g, "-");
+  
   var q = {
-    title: req.body.title.replace(/ /g, "_"),
+    id: title,
+    title: title,
     q_author: req.body.q_author
   };
   
