@@ -28,7 +28,7 @@ define([
       if(answers) {
         for(var i=0; i< answers.length; i++) {
           var ans = new Answer({
-            qId: this.model.get('title'),
+            qId: this.model.get('id'),
             answer: answers[i],
             a_author:    "Xin"
           });

@@ -931,6 +931,7 @@
    <field name="title" type="text_general" indexed="true" stored="true" />
    <field name="title_ac" type="text_ac" indexed="true" stored="true" />
    <copyField source="title" dest="title_ac" />
+   <field name="group" type="text_general" indexed="true" stored="true" />
    <field name="answers" type="text_general" indexed="true" stored="true" multiValued="true"/>
    <field name="subject" type="text_general" indexed="true" stored="true"/>
    <field name="description" type="text_general" indexed="true" stored="true"/>

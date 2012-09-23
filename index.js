@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/api/question', questionController.postQuestion);
-app.get('/api/question/:title', questionController.getQuestion);
+app.get('/api/question/:id', questionController.getQuestion);
 app.post('/api/answer', answerController.postAnswer);
 app.get('/api/suggest/:hint', questionController.getSuggest);
 

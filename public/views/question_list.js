@@ -1,13 +1,12 @@
 define([
   'jquery',
-  'jqueryui',
   'underscore', 
   'backbone',
   'models/question',
   'views/question_item',
   'collections/questions',
   'text!templates/question_list.html'
-  ], function($, JqueryUi, _, Backbone, Question, QuestionItemView, Questions, QuestionListTemplate){
+  ], function($, _, Backbone, Question, QuestionItemView, Questions, QuestionListTemplate){
   var QuestionListView = Backbone.View.extend({
 
     template: _.template(QuestionListTemplate),
@@ -42,7 +41,8 @@ define([
       if (e.keyCode != 13) return;
       var q = new Question({
         title: this.$("#newQuestion").val(),
-        q_author:    "Xin"
+        q_author:    "Xin",
+        group: "Cloud"
       });
       
       this.questions.add(q);

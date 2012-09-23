@@ -4,11 +4,13 @@ var storage = require('./solr_store.js');
 var answer = exports;
 
 answer.postAnswer = function(req, res) {
-	var ans;
+  var ans;
   ans = {
     answer: req.body.answer,
     a_author: req.body.a_author
   };
+  
+  // retrieve question, insert answer and then save
   
   var qId =  req.body.qId;
   var q = {};
@@ -26,6 +28,11 @@ answer.postAnswer = function(req, res) {
       
       q.answers.push(ans.answer);
       q.a_authors.push(ans.a_author);
+      
+      // workaround for bug: copy field in solr leads to multivalue when updating
+      if(q.title_ac) {
+        delete q.title_ac;
+      }
       
       storage.save(q, 'question', function(err, data) {
         if (err) {

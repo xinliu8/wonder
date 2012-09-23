@@ -5,12 +5,13 @@ var question = exports;
 
 question.postQuestion = function(req, res) {
   
-  var title = req.body.title.replace(/ /g, "-");
+  var title = req.body.title;
   
   var q = {
-    id: title,
+    id: title.replace(/ /g, "-"),
     title: title,
-    q_author: req.body.q_author
+    q_author: req.body.q_author,
+    group: req.body.group
   };
   
   if(req.body.answers){
@@ -27,11 +28,11 @@ question.postQuestion = function(req, res) {
 };
 
 question.getQuestion = function(req, res) {
-  var title = req.params.title;
+  var id = req.params.id;
   
-  storage.get(title, 'question', function(err, data) {
+  storage.get(id, 'question', function(err, data) {
     if (err) {
-      return console.log("get question error:" + err + "for " + title);
+      return console.log("get question error:" + err + "for " + id);
     }else {
       return res.send(data);
     }
